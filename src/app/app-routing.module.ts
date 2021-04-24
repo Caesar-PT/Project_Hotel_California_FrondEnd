@@ -1,7 +1,10 @@
+
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {SignupComponent} from './signup/signup.component';
-import {ListuserComponent} from './listuser/listuser.component';
+import {SignupComponent} from './account/signup/signup.component';
+import {ListuserComponent} from './account/listuser/listuser.component';
+import {UpdateuserComponent} from './account/updateuser/updateuser.component';
+import {LoginComponent} from './account/login/login.component';
 
 const routes: Routes = [
   {
@@ -11,6 +14,14 @@ const routes: Routes = [
   {
     path: '',
     component: ListuserComponent
+  },
+  {
+    path: 'update/:id',
+    component: UpdateuserComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   },
 ];
 
