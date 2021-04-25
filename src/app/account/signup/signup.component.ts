@@ -11,13 +11,13 @@ import {User} from '../../user';
 })
 export class SignupComponent implements OnInit {
 
-  // @ts-ignore
   user: User = {
-    // id: 0,
+    id: 0,
     fullName: '',
     username: '',
     email: '',
     password: '',
+    repassword: '',
     address: '',
     phoneNumber: ''
   };
@@ -55,12 +55,30 @@ export class SignupComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.validation_messages;
   }
 
   createUser() {
       this.userService.createUser(this.user).subscribe(() => {
-        this.router.navigate(['/']);
+        if (this.user.password == ''){
+          alert ("Vui lòng nhập mật khẩu");
+          return false;
+        }
+
+        else if (this.user.repassword == ''){
+          alert (" \n" +
+            "Vui lòng nhập mật khẩu xác nhận");
+          return false;
+        }
+
+        else if (this.user.password != this.user.repassword) {
+          alert ("\nMật khẩu không khớp: Vui lòng thử lại ")
+          return false;
+        }
+
+        else{
+          return this.router.navigate(['/login']);
+        }
+       // return this.router.navigate(['/']);
       });
     }
 

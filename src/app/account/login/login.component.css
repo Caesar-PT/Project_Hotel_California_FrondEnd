@@ -6,7 +6,7 @@ html,body{
   background-repeat: no-repeat;
   height: 10%;
   font-family: 'Numans', sans-serif;
-  margin-top: 30px;
+  /*margin-top: 30px;*/
 }
 
 /*.container{*/
@@ -15,9 +15,9 @@ html,body{
 /*}*/
 
 .card{
-  height: 700px;
-  margin-top: 80px;
-  margin-bottom: auto;
+  height: 750px;
+  /*margin-top: 40px;*/
+  /*margin-bottom: auto;*/
   width: 600px;
   background-color: rgba(0,0,0,0.5) !important;
 }
@@ -40,7 +40,7 @@ html,body{
 .social_icon{
   position: absolute;
   right: 20px;
-  top: -45px;
+  top: -15px;
 }
 
 .input-group-prepend span{
