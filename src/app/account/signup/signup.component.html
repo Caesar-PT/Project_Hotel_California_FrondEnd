@@ -1,0 +1,99 @@
+<body>
+<form>
+  <script>
+
+    function checkPassword() {
+      password = document.getElementById("password").value;
+      repassword =  document.getElementById("repassword").value;
+
+      if (password == ''){
+        alert ("Vui lòng nhập mật khẩu");
+        return false;
+      }
+
+      else if (repassword == ''){
+        alert (" \n" +
+          "Vui lòng nhập mật khẩu xác nhận");
+        return false;
+      }
+
+      else if (password != repassword) {
+        alert ("\nMật khẩu không khớp: Vui lòng thử lại ")
+        return false;
+      }
+
+      else{
+        return true;
+      }
+    }
+  </script>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!------ Include the above in your HEAD tag ---------->
+
+  <div class="container register">
+    <div class="row">
+      <div class="col-md-3 register-left">
+        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+        <h3>Welcome</h3>
+        <p>
+          You are only 30 seconds away from making a beautiful home!</p>
+        <input type="submit" name="" routerLink="/login" value="Login"/>
+      </div>
+      <div class="col-md-9 register-right">
+        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+               aria-controls="home" aria-selected="true">Employee</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+               aria-controls="profile" aria-selected="false">Hirer</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <h3 class="register-heading">Register account</h3>
+            <div class="row register-form">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input name="name" type="text" maxlength="10" minlength="10" class="form-control" placeholder="Full Name *"  [(ngModel)]="user.fullName">
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="User Name *" name="name" [(ngModel)]="user.username">
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" placeholder="Password *"  name="password" id="password" [(ngModel)]="user.password">
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" placeholder="Confirm Password *" name="repassword" id="repassword" [(ngModel)]="user.repassword">
+                </div>
+
+                <div class="form-group">
+
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input type="email" class="form-control" placeholder="Email *" name="name" [(ngModel)]="user.email">
+                </div>
+                <div class="form-group">
+                  <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control"
+                         placeholder="Phone Number *" name="name" [(ngModel)]="user.phoneNumber">
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" placeholder="Address *" name="name" [(ngModel)]="user.address">
+                </div>
+                <button  class="btnRegister"  (click)="createUser()" >Register</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</form>
+</body>
