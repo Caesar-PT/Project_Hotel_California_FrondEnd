@@ -1,23 +1,17 @@
-
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { ListHousesComponent } from './list-houses/list-houses.component';
-
-const routes: Routes = [
-  {
-    path: '',
-    component: ListHousesComponent
-  }
-=======
-
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {SignupComponent} from './account/signup/signup.component';
 import {ListuserComponent} from './account/listuser/listuser.component';
 import {UpdateuserComponent} from './account/updateuser/updateuser.component';
 import {LoginComponent} from './account/login/login.component';
+import {ListPostComponent} from './list-post/list-post.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: ListHousesComponent
+  },
   {
     path: 'create',
     component: SignupComponent
@@ -34,6 +28,10 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
+  {
+    path: "post",
+    component: ListPostComponent
+  }
 ];
 
 @NgModule({
