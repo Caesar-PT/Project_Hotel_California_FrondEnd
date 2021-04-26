@@ -10,7 +10,7 @@ import {User} from '../../user';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-
+  form: any = {};
   user: User = {
     id: 0,
     fullName: '',
@@ -57,30 +57,21 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createUser() {
-      this.userService.createUser(this.user).subscribe(() => {
-        if (this.user.password == ''){
-          alert ("Vui lòng nhập mật khẩu");
-          return false;
-        }
 
-        else if (this.user.repassword == ''){
-          alert (" \n" +
-            "Vui lòng nhập mật khẩu xác nhận");
-          return false;
-        }
-
-        else if (this.user.password != this.user.repassword) {
-          alert ("\nMật khẩu không khớp: Vui lòng thử lại ")
-          return false;
-        }
-
-        else{
-          return this.router.navigate(['/login']);
-        }
-       // return this.router.navigate(['/']);
+  createNewUser(): void {
+    this.user.username = this.form.username;
+    this.user.password = this.form.password;
+    this.user.address = this.form.address;
+    this.user.fullName = this.form.fullName;
+    this.user.email = this.form.email;
+    this.user.phoneNumber = this.form.phoneNumber;
+    console.log(this.user);
+    this.userService.createUser(this.user).subscribe(data => {
+        this.router.navigate(['/login']);
+      },
+      error => {
+        alert('Tài khoản đã tồn tại!');
+        console.log(error);
       });
-    }
-
-
+  }
 }

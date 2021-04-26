@@ -1,32 +1,9 @@
+
 <body>
-<form>
-  <script>
 
-    function checkPassword() {
-      password = document.getElementById("password").value;
-      repassword =  document.getElementById("repassword").value;
+<form name="form" class="form-group" (ngSubmit)="f.form.valid && createNewUser()" #f="ngForm" novalidate>
 
-      if (password == ''){
-        alert ("Vui lòng nhập mật khẩu");
-        return false;
-      }
 
-      else if (repassword == ''){
-        alert (" \n" +
-          "Vui lòng nhập mật khẩu xác nhận");
-        return false;
-      }
-
-      else if (password != repassword) {
-        alert ("\nMật khẩu không khớp: Vui lòng thử lại ")
-        return false;
-      }
-
-      else{
-        return true;
-      }
-    }
-  </script>
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -58,34 +35,58 @@
             <div class="row register-form">
               <div class="col-md-6">
                 <div class="form-group">
-                  <input name="name" type="text" maxlength="10" minlength="10" class="form-control" placeholder="Full Name *"  [(ngModel)]="user.fullName">
+                  <input name="fullName" type="text" class="form-control" id="fullName" placeholder="Full Name *"
+                         [(ngModel)]="form.fullName" #fullName="ngModel" required="required">
                 </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="User Name *" name="name" [(ngModel)]="user.username">
-                </div>
-                <div class="form-group">
-                  <input type="password" class="form-control" placeholder="Password *"  name="password" id="password" [(ngModel)]="user.password">
-                </div>
-                <div class="form-group">
-                  <input type="password" class="form-control" placeholder="Confirm Password *" name="repassword" id="repassword" [(ngModel)]="user.repassword">
+                <div *ngIf="f.submitted && fullName.invalid">
+                  <div *ngIf="fullName.errors?.required" class="text-danger">Vui lòng nhập tên đầy đủ</div>
                 </div>
 
                 <div class="form-group">
+                  <input name="username" type="text" class="form-control" id="username" placeholder="User Name *"
+                         [(ngModel)]="form.username" #username="ngModel" required="required">
+                </div>
+                <div *ngIf="f.submitted && username.invalid">
+                  <div *ngIf="username.errors?.required" class="text-danger">Vui lòng nhập tên đăng nhập</div>
+                </div>
+
+                <div class="form-group">
+                  <input name="password" type="password" class="form-control" id="password1" placeholder="Password *"
+                         [(ngModel)]="form.password" #password="ngModel" required="required" minlength="6">
+                </div>
+                <div *ngIf="f.submitted && password.invalid">
+                  <div *ngIf="password.errors?.required" class="text-danger">Vui lòng nhập mật khẩu </div>
+                  <div *ngIf="password.errors?.minlength" class="text-danger">Vui lòng nhập mật khẩu trên 6 kí tự</div>
 
                 </div>
+               
+
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <input type="email" class="form-control" placeholder="Email *" name="name" [(ngModel)]="user.email">
+                  <input name="email" type="text" class="form-control" id="email" placeholder="Email *"
+                         [(ngModel)]="form.email" #email="ngModel" required="required">
+                </div>
+                <div *ngIf="f.submitted && email.invalid">
+                  <div *ngIf="email.errors?.required" class="text-danger">Vui lòng nhập email</div>
                 </div>
                 <div class="form-group">
-                  <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control"
-                         placeholder="Phone Number *" name="name" [(ngModel)]="user.phoneNumber">
+                  <input name="phoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="Phone Number *"
+                         [(ngModel)]="form.phoneNumber" #phoneNumber="ngModel" required="required" minlength="10" maxlength="11">
+                </div>
+                <div *ngIf="f.submitted && phoneNumber.invalid">
+                  <div *ngIf="phoneNumber.errors?.required" class="text-danger">Vui lòng nhập đúng số điện thoại</div>
+                  <div *ngIf="phoneNumber.errors?.minlength" class="text-danger">Vui lòng nhập đúng số điện thoại </div>
+                  <div *ngIf="phoneNumber.errors?.maxlength" class="text-danger">Vui lòng nhập đúng số điện thoại </div>
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control" placeholder="Address *" name="name" [(ngModel)]="user.address">
+                  <input name="address" type="text" class="form-control" id="address" placeholder="Address *"
+                         [(ngModel)]="form.address" #address="ngModel" required="required">
                 </div>
-                <button  class="btnRegister"  (click)="createUser()" >Register</button>
+                <div *ngIf="f.submitted && address.invalid">
+                  <div *ngIf="address.errors?.required" class="text-danger">Vui lòng nhập  địa chỉ</div>
+                </div>
+                <button type="submit" onclick="return checkPassword()" class="btnRegister" >Register</button>
               </div>
             </div>
           </div>
@@ -96,4 +97,7 @@
   </div>
 
 </form>
+
 </body>
+
+
