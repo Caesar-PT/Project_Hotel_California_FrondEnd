@@ -1,4 +1,15 @@
 
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { ListHousesComponent } from './list-houses/list-houses.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: ListHousesComponent
+  }
+=======
+
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {SignupComponent} from './account/signup/signup.component';
