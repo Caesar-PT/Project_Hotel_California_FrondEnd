@@ -3,7 +3,7 @@
     <h1 class="jumbotron-heading">LIST POST</h1>
   </div>
 </section>
-<button type="button" class="btn btn-primary" [routerLink]="'/create'">Create new Post</button>
+<button type="button" class="btn btn-primary" [routerLink]="'/create-post'">Create new Post</button>
 <hr>
 <table class="table table-bordered">
   <thead>
@@ -11,20 +11,18 @@
     <th scope="col">Id</th>
     <th scope="col">House Name</th>
     <th scope="col">Title</th>
-    <th scope="col">Edit</th>
-    <th scope="col">Delete</th>
+    <th scope="col">Status</th>
+    <th scope="col">Oder</th>
+
   </tr>
   </thead>
   <tr *ngFor="let b of posts">
     <td>{{b.id}}</td>
     <td>{{b.house.name}}</td>
-    <td><a [routerLink]="'/books/' + b.id">{{b.title}}</a></td>
-    <td>
-      <button type="button" class="btn btn-warning" [routerLink]="'/books/edit/'+ b.id">Edit</button>
-    </td>
-    <td>
-      <button type="button" class="btn btn-danger" [routerLink]="'/books/delete/' + b.id">Delete</button>
-    </td>
+    <td>{{b.title}}</td>
+    <td>{{b.house.houseStatus.name}}</td>
+    <td><button type="button" class="btn btn-primary" [routerLink]="'/post/oder/' + b.id">Oder</button></td>
+
   </tr>
 </table>
 
