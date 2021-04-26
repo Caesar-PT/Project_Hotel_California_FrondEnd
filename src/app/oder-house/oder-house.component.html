@@ -1,0 +1,35 @@
+<form (ngSubmit)="createNewOder()">
+  <div class="form-group">
+    <label for="startDate"> StartDate: </label>
+    <input class="form-control" type="date" [(ngModel)]="oderPost.startDate" name="startDate" id="startDate">
+    <br>
+  </div>
+  <div class="form-group">
+    <label for="endDate"> StartDate: </label>
+    <input class="form-control" type="date" [(ngModel)]="oderPost.endDate" name="endDate" id="endDate">
+    <br>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th scope="col">House Name</th>
+      <th scope="col">Bath Room</th>
+      <th scope="col">Bed Room</th>
+      <th scope="col">Description</th>
+      <th scope="col">House Type</th>
+    </tr>
+    </thead>
+    <tr>
+      <td>{{post.house.name}}</td>
+      <td>{{post.house.bathRoom}}</td>
+      <td>{{post.house.bedRoom}}</td>
+      <td>{{post.title}}</td>
+      <td>{{post.house.houseType.name}}</td>
+    </tr>
+  </table>
+  <div>
+    <div style="float: left; width: 100px">
+      <button type="submit" class="btn btn-warning">Oder</button>
+    </div>
+  </div>
+</form>

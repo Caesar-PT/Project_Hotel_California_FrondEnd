@@ -20,7 +20,6 @@ export class UpdateuserComponent implements OnInit {
     username: '',
     email: '',
     password: '',
-    repassword: '',
     address: '',
     phoneNumber: ''
   };

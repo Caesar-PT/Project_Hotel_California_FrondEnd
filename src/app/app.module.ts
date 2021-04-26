@@ -16,6 +16,8 @@ import {LoginComponent} from './account/login/login.component';
 import { ListPostComponent } from './list-post/list-post.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
+import { OderHouseComponent } from './oder-house/oder-house.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
@@ -32,6 +34,8 @@ import { EditPostComponent } from './edit-post/edit-post.component';
     ListPostComponent,
     CreatePostComponent,
     EditPostComponent,
+    OderHouseComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
