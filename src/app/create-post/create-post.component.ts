@@ -4,11 +4,6 @@ import {PostService} from '../service/post.service';
 import {Router} from '@angular/router';
 import {HouseService} from '../house.service';
 import {House} from '../house';
-import {HouseType} from '../house-type';
-import {HouseStatus} from '../house-status';
-import {Village} from '../village';
-import {User} from '../user';
-import {Photo} from '../photo';
 
 @Component({
   selector: 'app-create-post',
@@ -16,6 +11,50 @@ import {Photo} from '../photo';
   styleUrls: ['./create-post.component.css']
 })
 export class CreatePostComponent implements OnInit {
+  post: Post = {
+    id: 0,
+    status: false,
+    title: '',
+    house: {
+      id: 0,
+      name: '',
+      bedRoom: 0,
+      bathRoom: 0,
+      description: '',
+      priceDay: 0,
+      houseType: {
+        id: 0,
+        name: ''
+      },
+      houseStatus:{
+        id: 0,
+        name: ''
+      },
+      village:{
+        id: 0,
+        name: '',
+        district: {
+          id: 0,
+          name: '',
+          province: {
+            id: 0,
+            name: ''
+          }
+        }
+      },
+      appUser: {
+        id: 0,
+        fullName: '',
+        username: '',
+        email: '',
+        password: '',
+        address: '',
+        phoneNumber: '',
+      },
+      photo: [],
+      avatar: '',
+    }
+  };
 
   houses: House[] = [];
 

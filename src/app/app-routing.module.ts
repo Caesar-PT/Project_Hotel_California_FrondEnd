@@ -6,6 +6,7 @@ import {ListuserComponent} from './account/listuser/listuser.component';
 import {UpdateuserComponent} from './account/updateuser/updateuser.component';
 import {LoginComponent} from './account/login/login.component';
 import {ListPostComponent} from './list-post/list-post.component';
+import {CreatePostComponent} from './create-post/create-post.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: "post",
     component: ListPostComponent
+  },
+  {
+    path: "create-post",
+    component: CreatePostComponent
   }
 ];
 
