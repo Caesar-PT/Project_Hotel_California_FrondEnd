@@ -1,30 +1,4 @@
-<script>
 
-  function checkPassword() {
-    password1 = document.getElementById("password").value;
-    password2 =  document.getElementById("repassword").value;
-
-    if (password1 == ''){
-      alert ("Vui lòng nhập mật khẩu");
-      return false;
-    }
-
-    else if (password2 == ''){
-      alert (" \n" +
-        "Vui lòng nhập mật khẩu xác nhận");
-      return false;
-    }
-
-    else if (password1 != password2) {
-      alert ("\nMật khẩu không khớp: Vui lòng thử lại ")
-      return false;
-    }
-
-    else{
-      return true;
-    }
-  }
-</script>
 <body>
 
 <form name="form" class="form-group" (ngSubmit)="f.form.valid && createNewUser()" #f="ngForm" novalidate>
@@ -85,13 +59,7 @@
                   <div *ngIf="password.errors?.minlength" class="text-danger">Vui lòng nhập mật khẩu trên 6 kí tự</div>
 
                 </div>
-                <div class="form-group">
-                  <input name="repassword" type="text" class="form-control" id="password2" placeholder="Repassword *"
-                         [(ngModel)]="form.repassword" #repassword="ngModel" required="required">
-                </div>
-                <div *ngIf="f.submitted && repassword.invalid">
-                  <div *ngIf="repassword.errors?.required" class="text-danger">Vui lòng nhập mật khẩu xác nhận</div>
-                </div>
+               
 
               </div>
               <div class="col-md-6">

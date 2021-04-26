@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {User} from '../../user';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {UserService} from '../../service/user.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-updateuser',
@@ -11,6 +12,7 @@ import {UserService} from '../../service/user.service';
 export class UpdateuserComponent implements OnInit {
   // @ts-ignore
   sub: Subscription;
+  // form: any = {};
 
   user: User = {
     id: 0,
@@ -45,7 +47,7 @@ export class UpdateuserComponent implements OnInit {
   }
 
   updateUser(id:number){
-    this.userService.updateBook(id,this.user).subscribe(() =>{
+    this.userService.updateUser(id,this.user).subscribe(() =>{
       this.router.navigate(['/'])
     });
   }

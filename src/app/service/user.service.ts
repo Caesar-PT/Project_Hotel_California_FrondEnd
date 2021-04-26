@@ -17,7 +17,7 @@ export class UserService {
     return this.httpClient.get<User[]>(URL_BACKEND + '/user');
   }
 
-  updateBook(id: number, user: User): Observable<User> {
+  updateUser(id: number, user: User): Observable<User> {
     return this.httpClient.put<User>(URL_BACKEND + '/user/update/' + id, user);
   }
   getUserById(id: number): Observable<User> {
