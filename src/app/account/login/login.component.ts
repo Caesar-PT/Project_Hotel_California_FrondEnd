@@ -19,6 +19,11 @@ export class LoginComponent implements OnInit {
   error = '';
   loading = false;
   submitted = false;
+  isLoginFailed = false;
+  isSuccess = false;
+  errorMessage = false;
+
+
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -42,8 +47,10 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/'])
         },
         error => {
-          alert("Thông tin tài khoản hoặc mật khẩu không chính xác!");
           this.loading = false;
+          this.errorMessage = error.error.message;
+          this.isLoginFailed = true;
+          this.isSuccess = true;
         });
   }
 

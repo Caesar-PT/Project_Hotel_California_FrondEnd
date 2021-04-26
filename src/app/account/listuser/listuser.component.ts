@@ -23,4 +23,8 @@ export class ListuserComponent implements OnInit {
       this.user = user;
     });
   }
+
+  logout(){
+    this.router.navigate(['/login'])
+  }
 }
