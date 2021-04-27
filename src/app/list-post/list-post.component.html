@@ -1,0 +1,28 @@
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading">LIST POST</h1>
+  </div>
+</section>
+<button type="button" class="btn btn-primary" [routerLink]="'/create-post'">Create new Post</button>
+<hr>
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th scope="col">Id</th>
+    <th scope="col">House Name</th>
+    <th scope="col">Title</th>
+    <th scope="col">Status</th>
+    <th scope="col">Oder</th>
+
+  </tr>
+  </thead>
+  <tr *ngFor="let b of posts">
+    <td>{{b.id}}</td>
+    <td>{{b.house.name}}</td>
+    <td>{{b.title}}</td>
+    <td>{{b.house.houseStatus.name}}</td>
+    <td><button type="button" class="btn btn-primary" [routerLink]="'/post/oder/' + b.id">Oder</button></td>
+
+  </tr>
+</table>
+
