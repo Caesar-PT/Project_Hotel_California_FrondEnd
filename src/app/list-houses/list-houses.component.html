@@ -1,0 +1,28 @@
+<div>
+    <h1 style="text-align: center;">List houses</h1>
+  </div>
+  <div style="margin: 20px;">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Name</th>
+          <th scope="col">Bath Room</th>
+          <th scope="col">Avatar</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let house of listHouse; index as i">
+        <tr>
+          <th scope="row">{{i+1}}</th>
+          <td>{{house.name}}</td>
+          <td>{{house.bathRoom}}</td>
+          <td><img src="{{house.avatar}}" width="50" height="60"></td>
+          <td>
+            <button type="button" class="btn btn-warning" [routerLink]="'/edit/'+ house.id">Edit</button>
+            <button type="button" class="btn btn-warning" (click)="deleteHouse(house.id)" style="margin-left: 10px;">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
