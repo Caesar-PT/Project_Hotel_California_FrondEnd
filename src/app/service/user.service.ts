@@ -26,6 +26,17 @@ export class UserService {
     })
     return this.httpClient.put<User>(URL_BACKEND + '/user/update' , user , { headers: headers });
   }
+   resetPassword( user: User): Observable<User> {
+    const token = localStorage.getItem('ACCESS_TOKEN');
+    const headers = new HttpHeaders({
+      'Access-Control-Allow-Origin':'*',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.put<User>(URL_BACKEND + '/user/resetPassword' , user , { headers: headers });
+  }
+
+
   getUserById(id: number): Observable<User> {
     return this.httpClient.get<User>(URL_BACKEND + '/user/' + `${id}`);
   }

@@ -8,6 +8,7 @@ import {LoginComponent} from './account/login/login.component';
 import {ListPostComponent} from './list-post/list-post.component';
 import {CreatePostComponent} from './create-post/create-post.component';
 import {OderHouseComponent} from './oder-house/oder-house.component';
+import {ChangepasswordComponent} from './account/changepassword/changepassword.component';
 
 const routes: Routes = [
   {
@@ -19,8 +20,12 @@ const routes: Routes = [
     component: SignupComponent
   },
   {
-    path: '',
+    path: 'user',
     component: ListuserComponent
+  },
+  {
+    path: 'resetPass/:id',
+    component: ChangepasswordComponent
   },
   {
     path: 'update/:id',

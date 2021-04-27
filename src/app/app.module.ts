@@ -18,6 +18,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { OderHouseComponent } from './oder-house/oder-house.component';
 import { HeaderComponent } from './header/header.component';
+import {ChangepasswordComponent} from './account/changepassword/changepassword.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { HeaderComponent } from './header/header.component';
     EditPostComponent,
     OderHouseComponent,
     HeaderComponent,
+    ChangepasswordComponent,
   ],
   imports: [
     BrowserModule,

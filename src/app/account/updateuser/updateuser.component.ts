@@ -12,8 +12,6 @@ import {Subscription} from 'rxjs';
 export class UpdateuserComponent implements OnInit {
   // @ts-ignore
   sub: Subscription;
-  // form: any = {};
-
   user: User = {
     id: 0,
     fullName: '',
@@ -50,4 +48,5 @@ export class UpdateuserComponent implements OnInit {
       this.router.navigate(['/'])
     });
   }
+
 }

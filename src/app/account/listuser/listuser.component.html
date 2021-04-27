@@ -3,7 +3,7 @@
 
 <table class="table table-striped" border="1px">
   <tr style="background: #ffff56">
-    <td>#</td>
+    <td>id</td>
     <td>fullname</td>
     <td>username</td>
     <td>password</td>
@@ -11,8 +11,8 @@
     <td>phone</td>
     <td>address</td>
   </tr>
-  <tr *ngFor="let user of user let i = index ">
-    <td>{{i + 1}}</td>
+  <tr *ngFor="let user of user  ">
+    <td>{{user.id}}</td>
     <td>{{user.fullName}}</td>
     <td>{{user.username}}</td>
     <td>{{user.password}}</td>
