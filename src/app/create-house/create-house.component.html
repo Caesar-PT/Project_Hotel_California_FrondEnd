@@ -2,28 +2,34 @@
     <h1 style="text-align: center;color:red;">Create new house</h1>
 </div>
 <div style="margin: 100px;">
-    <form [formGroup]="houseForm" (ngSubmit)="createHouse()">
+    <form [formGroup]="houseForm" (ngSubmit)="createHouse()" style="max-height: 60vh; overflow: auto;">
         <div class="form-group">
-            <label for="name">Name</label>
-            <input autocomplete="off" type="text" name="name" formControlName="name" class="form-control" id="name" aria-describedby=""
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Name</mat-label>
+                <input formControlName="name" matInput>
+                <mat-error *ngIf="hasError('name', 'required')">
+                    Bạn chưa nhập tên
+                </mat-error>
+            </mat-form-field>
+            <!-- <input autocomplete="off" type="text" name="name" formControlName="name" class="form-control" id="name" aria-describedby=""
                 placeholder="">
                 <span class="w-100 text-danger" *ngIf="hasError('name', 'required')">
                     ban chua nhap ten
-                </span>
+                </span> -->
         </div>
         <div class="form-group">
             <label for="bedRoom">bedRoom</label>
-            <input autocomplete="off" type="bedRoom" name="code" formControlName="bedRoom" class="form-control" id="createDate"
-                aria-describedby="" placeholder="">
-                <span class="w-100 text-danger" *ngIf="hasError('bedRoom', 'required')">
-                    ban chua nhap so phong ngu
-                </span>
-                <span class="w-100 text-danger" *ngIf="hasError('bedRoom', 'min')">
-                    phong ngu phai la so duong
-                </span>
-                <span class="w-100 text-danger" *ngIf="hasError('bedRoom', 'pattern')">
-                    phong ngu phai la so
-                </span>
+            <input autocomplete="off" type="bedRoom" name="code" formControlName="bedRoom" class="form-control"
+                id="createDate" aria-describedby="" placeholder="">
+            <span class="w-100 text-danger" *ngIf="hasError('bedRoom', 'required')">
+                ban chua nhap so phong ngu
+            </span>
+            <span class="w-100 text-danger" *ngIf="hasError('bedRoom', 'min')">
+                phong ngu phai la so duong
+            </span>
+            <span class="w-100 text-danger" *ngIf="hasError('bedRoom', 'pattern')">
+                phong ngu phai la so
+            </span>
         </div>
         <div class="form-group">
             <label for="bathRoom">bathRoom</label>
@@ -37,36 +43,41 @@
         </div>
         <div class="form-group">
             <label for="priceDay">priceDay</label>
-            <textarea name="priceDay" formControlName="priceDay" class="form-control" id="description"
+            <textarea name="priceDay" formControlName="priceByDay" class="form-control" id="description"
                 aria-describedby="" placeholder=""></textarea>
         </div>
         <div class="form-group">
             <label>houseType</label>
-            <select id="houseType" name="houseType" class="form-select" aria-label="Default select example" formControlName="houseType"> 
-                <option  *ngFor="let type of listHouseType" [value]="type.id" >{{type.name}}</option>
+            <select id="houseType" name="houseType" class="form-select" aria-label="Default select example"
+                formControlName="houseType">
+                <option *ngFor="let type of listHouseType" [value]="type.id">{{type.name}}</option>
             </select>
         </div>
         <div class="form-group">
             <label>houseStatus</label>
-            <select name="houseStatus" class="form-select" formControlName="houseStatus" aria-label="Default select example" >
-                <option *ngFor="let houseStatus of listHouseStatus" [value]="houseStatus.id">{{houseStatus.name}}</option>
+            <select name="houseStatus" class="form-select" formControlName="houseStatus"
+                aria-label="Default select example">
+                <option *ngFor="let houseStatus of listHouseStatus" [value]="houseStatus.id">{{houseStatus.name}}
+                </option>
             </select>
         </div>
         <div class="form-group">
             <label>village</label>
             <select name="village" class="form-select" aria-label="Default select example" formControlName="village">
-                <option  *ngFor="let village of listVillage" [value]="village.id">{{village.name}}</option>
+                <option *ngFor="let village of listVillage" [value]="village.id">{{village.name}}</option>
             </select>
         </div>
         <div class="form-group">
             <p>List photo</p>
 
-            <input autocomplete="off" type="file" (change)="upLoad($event)" [multiple]="true" accept="*.png.jpg" >
+            <input autocomplete="off" type="file" (change)="upLoad($event)" accept="*.png.jpg">
+            <app-image height="100px" *ngFor="let srcImg of photo" [src]="srcImg"></app-image>
         </div>
         <div class="form-group">
             <p>Avatar</p>
 
-            <input autocomplete="off" type="file" (change)="upLoadS($event)" accept="*.png.jpg" formControlName="avatar">
+            <input autocomplete="off" type="file" (change)="upLoadS($event)" accept="*.png.jpg"
+                formControlName="avatars">
         </div>
         <div style="text-align: center;">
             <button type="submit" class="btn btn-primary">Create</button>

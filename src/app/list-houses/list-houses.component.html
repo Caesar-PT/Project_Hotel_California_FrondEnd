@@ -1,28 +1,61 @@
-<div>
+<div class="w-100">
+  <div>
     <h1 style="text-align: center;">List houses</h1>
   </div>
-  <div style="margin: 20px;">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">STT</th>
-          <th scope="col">Name</th>
-          <th scope="col">Bath Room</th>
-          <th scope="col">Avatar</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let house of listHouse; index as i">
-        <tr>
-          <th scope="row">{{i+1}}</th>
-          <td>{{house.name}}</td>
-          <td>{{house.bathRoom}}</td>
-          <td><img src="{{house.avatar}}" width="50" height="60"></td>
-          <td>
-            <button type="button" class="btn btn-warning" [routerLink]="'/edit/'+ house.id">Edit</button>
-            <button type="button" class="btn btn-warning" (click)="deleteHouse(house.id)" style="margin-left: 10px;">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="w-100 text-right mb-4 pr-3">
+    <button mat-raised-button color="warn" (click)="openForm()">
+      <mat-icon>home</mat-icon> Thêm mới
+    </button>
   </div>
+  <div class="row w-100 pl-4 pr-4">
+    <ng-container *ngFor="let house of listHouse">
+      <div class="col-3">
+        <app-image class="w-100" [src]="house.avatar"></app-image>
+      </div>
+      <div class="col-8 pt-2">
+        <div class="row">
+          <div class="col-1 text-right pb-4">
+            <i class="fa fa-home" aria-hidden="true"></i>
+          </div>
+          <div class="col-11 pb-4">
+            Loại nhà: {{house.houseType?.name}}
+          </div>
+
+          <div class="col-1 text-right pb-4">
+            <i class="fa fa-superpowers" aria-hidden="true"></i>
+          </div>
+          <div class="col-11 pb-4">
+            Trạng thái: {{house.houseStatus?.name}}
+          </div>
+
+          <div class="col-1 text-right pb-4">
+            <i class="fa fa-bed" aria-hidden="true"></i>
+          </div>
+          <div class="col-11 pb-4">
+            Số phòng ngủ: {{house.bedRoom}}
+          </div>
+
+          <div class="col-1 text-right pb-4">
+            <i class="fa fa-bath" aria-hidden="true"></i>
+          </div>
+          <div class="col-11 pb-4">
+            Số phòng vệ sinh: {{house.bathRoom}}
+          </div>
+
+          <div class="col-1 text-right pb-4">
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+          </div>
+          <div class="col-11 pb-4">
+            Địa chỉ: {{house.village?.name}} - {{house.village?.district?.name}} - {{house.village?.district?.province?.name}}
+          </div>
+
+        </div>
+      </div>
+      <div class="col-1 text-right pb-4">
+        <i class="fa fa-pencil mr-3 pointer" matTooltip="Xem" style="font-size: 1.5rem;" aria-hidden="true" (click)="openForm(house)"></i>
+        <i class="fa fa-trash pointer" matTooltip="Xóa" aria-hidden="true" style="font-size: 1.5rem;"
+          (click)="deleteHouse(house.id)"></i>
+      </div>
+    </ng-container>
+  </div>
+</div>

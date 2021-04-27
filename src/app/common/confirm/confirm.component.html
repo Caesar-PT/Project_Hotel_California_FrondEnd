@@ -1,0 +1,12 @@
+<mat-card-header>
+    <mat-card-title>Xác nhận</mat-card-title>
+</mat-card-header>
+<mat-card-content>
+    <p class="mt-2">
+        {{content}}
+    </p>
+    <div class="w-100 text-right">
+        <button mat-raised-button color="warn" (click)="closeDialog(true)">Xác nhận</button>
+        <button mat-raised-button class="ml-2" (click)="closeDialog()">Hủy</button>
+    </div>
+</mat-card-content>

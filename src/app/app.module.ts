@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,6 +17,18 @@ import { LoginComponent } from './account/login/login.component';
 import { UpdateuserComponent } from './account/updateuser/updateuser.component';
 import { ListuserComponent } from './account/listuser/listuser.component';
 import { SignupComponent } from './account/signup/signup.component';
+import { JwtInterceptorService } from './service/JwtInterceptorService';
+import { ImageComponent } from './common/image/image.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { ConfirmComponent } from './common/confirm/confirm.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -28,7 +40,9 @@ import { SignupComponent } from './account/signup/signup.component';
     ChangepasswordComponent,
     EditHouseComponent,
     CreateHouseComponent,
-    ListHousesComponent
+    ListHousesComponent,
+    ImageComponent,
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -48,9 +62,19 @@ import { SignupComponent } from './account/signup/signup.component';
       measurementId: "G-8NES4NHE9X"
     }),
     AngularFireStorageModule,
-
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatTooltipModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatDialogModule,
+    MatIconModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

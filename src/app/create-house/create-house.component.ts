@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { House } from '../house';
@@ -10,6 +10,8 @@ import { User } from '../user';
 import { Village } from '../village';
 import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
 import { FormBuilder, Validators } from '@angular/forms';
+import { JwtService } from '../service/jwt.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-house',
@@ -18,23 +20,23 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class CreateHouseComponent implements OnInit {
   avatar: string = "";
-  photo: Photo[] = [];
+  photo: string[] = [];
 
   houseForm = this.fb.group({
     name: ['', [Validators.required]],
     bedRoom: ['', [Validators.required, Validators.min(0), Validators.pattern('[0-9]*')]],
     bathRoom: ['', [Validators.required, Validators.min(0)]],
     description: ['', [Validators.maxLength(400)]],
-    priceDay: ['', [Validators.required, Validators.min(0)]],
+    priceByDay: ['', [Validators.required, Validators.min(0)]],
     houseType: ['', [Validators.required]],
     houseStatus: ['', [Validators.required]],
     village: ['', [Validators.required]],
-    avatar: ['', Validators.required]
+    avatars: ['', Validators.required]
   });
 
   file: any;
   downLoadURL: Observable<string> | undefined
-  name: string[] = [];
+  name: string ='';
   listHouseType: HouseType[] = [];
   listHouseStatus: HouseStatus[] = [];
   listVillage: Village[] = [];
@@ -44,10 +46,24 @@ export class CreateHouseComponent implements OnInit {
     private router: Router,
     private af: AngularFireStorage,
     private fb: FormBuilder,
-  ) { }
+    private jwt: JwtService,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    if (data) {
+      this.houseForm.patchValue(data);
+      this.setValueControl('houseType', data.houseType.id);
+      this.setValueControl('houseStatus', data.houseStatus.id);
+      this.setValueControl('village', data.village.id);
+      this.photo = data.photosList.map((p: any) => p.src);
+    }
+  }
 
   ngOnInit(): void {
     this.getAllList();
+  }
+
+  setValueControl(control: string, value: any) {
+    this.houseForm.get(control)?.setValue(value);
   }
 
   getAllList() {
@@ -63,8 +79,9 @@ export class CreateHouseComponent implements OnInit {
   }
 
   upLoad(event: any) {
-    this.file = Array.from(event.target.files);
-    this.name = Array.from(event.target.files).map((file: any) => '/files' + Date.now() + file.name);
+    this.file = event.target.files[0];
+    this.name = '/files' + Date.now() + this.file.name;
+    this.uploadImage();
   }
 
   upLoadS(event: any) {
@@ -74,17 +91,15 @@ export class CreateHouseComponent implements OnInit {
 
   createHouse() {
     if (this.houseForm.invalid) return;
-    this.uploadImage(); 
+    this.saveHouse();
   }
 
   uploadImage() {
-    this.photo = [];
-    this.file.forEach((file: any, i: number) => {
       const fileRef: AngularFireStorageReference = this.af.ref(
-        this.name[i]
+        this.name
       );
       if (this.file !== null) {
-        const task = this.af.upload(this.name[i], file);
+        const task = this.af.upload(this.name, this.file);
         task.percentageChanges().subscribe((e) => {
           console.log(e);
         });
@@ -93,13 +108,9 @@ export class CreateHouseComponent implements OnInit {
             if (url) {
               this.photo.push(url);
             }
-            if(this.photo.length === this.file.length) {
-              this.saveHouse();
-            }
           });
         });
       }
-    });
   }
 
   saveHouse() {
@@ -108,7 +119,10 @@ export class CreateHouseComponent implements OnInit {
     house.houseStatus = this.listHouseStatus.find(s => s.id == house.houseStatus);
     house.village = this.listVillage.find(v => v.id == house.village);
     house.photo = this.photo;
-    this.houseService.createHouse(house).subscribe(()=>{
+    house.appUser = this.jwt.currentUserValue.user;
+    house.avatar = house.avatars;
+    house.id = this.data?.id;
+    this.houseService.createHouse(house).subscribe(() => {
       this.router.navigate(['/house']);
     });
   }
