@@ -7,8 +7,8 @@
         <tr>
           <th scope="col">STT</th>
           <th scope="col">Name</th>
-          <th scope="col">Authur</th>
-          <th scope="col">Description</th>
+          <th scope="col">Bath Room</th>
+          <th scope="col">Avatar</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
@@ -17,7 +17,7 @@
           <th scope="row">{{i+1}}</th>
           <td>{{house.name}}</td>
           <td>{{house.bathRoom}}</td>
-          <td>{{house.bedRoom}}</td>
+          <td><img src="{{house.avatar}}" width="50" height="60"></td>
           <td>
             <button type="button" class="btn btn-warning" [routerLink]="'/edit/'+ house.id">Edit</button>
             <button type="button" class="btn btn-warning" (click)="deleteHouse(house.id)" style="margin-left: 10px;">Delete</button>

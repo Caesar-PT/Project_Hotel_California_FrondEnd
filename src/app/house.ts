@@ -13,7 +13,7 @@ export interface House {
     priceDay:number;
     houseType:HouseType;
     houseStatus:HouseStatus;
-    village:Village;
+    village:Village | any;
     appUser: User;
     photo:Photo[];
     avatar:string;

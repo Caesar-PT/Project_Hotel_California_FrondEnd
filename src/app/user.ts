@@ -1,10 +1,11 @@
 export interface User {
-    id: number;
-  fullName: string;
+  id: number;
   username: string;
-  email: string;
   password: string;
-  repassword: string;
+  fullName: string;
   address: string;
   phoneNumber: string;
+  email: string;
+  avatar: string;
+  appRole:any;
 }

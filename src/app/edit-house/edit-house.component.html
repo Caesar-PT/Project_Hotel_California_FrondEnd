@@ -1,1 +1,26 @@
-<p>edit-house works!</p>
+<div>
+    <h1 style="text-align: center;color: crimson;">Edit book</h1>
+  </div>
+  <div style="margin: 100px;">
+    <form (ngSubmit)="updateHouse()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="name" [(ngModel)]="house.name" class="form-control" id="name" aria-describedby=""
+          placeholder="">
+      </div>
+      <div class="form-group">
+        <label for="author">Author</label>
+        <textarea name="author" [(ngModel)]="house.bathRoom" class="form-control" id="author" aria-describedby=""
+          placeholder=""></textarea>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea name="description" [(ngModel)]="house.description" class="form-control" id="description"
+          aria-describedby="" placeholder=""></textarea>
+      </div>
+      <div style="text-align: center;">
+        <button type="submit" class="btn btn-primary">Edit</button>
+        <button class="btn btn-primary" routerLink="" style="margin-left: 10px;">Close</button>
+      </div>
+    </form>
+  </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { House } from '../house';
 import { HouseService } from '../house.service';
+import { Photo } from '../photo';
 
 @Component({
   selector: 'app-list-houses',
@@ -10,6 +11,7 @@ import { HouseService } from '../house.service';
 })
 export class ListHousesComponent implements OnInit {
   listHouse:House[] = [];
+  listPhoto:Photo[] = [];
   constructor(private houseService: HouseService, private router: Router) {
     this.getAllHouse();
    }
@@ -28,8 +30,16 @@ export class ListHousesComponent implements OnInit {
     if (confirm('You want delete?')) {
       this.houseService.deleteHouse(id).subscribe(() => {
         this.getAllHouse();
-        this.router.navigate(['/']);
+        this.router.navigate(['/house']);
       });
     }
   }
+
+  getPhotoByHouse(){
+    this.houseService.getAllPhoto().subscribe((photo) => {
+      this.listPhoto = photo;
+    })
+  }
+
+  
 }
