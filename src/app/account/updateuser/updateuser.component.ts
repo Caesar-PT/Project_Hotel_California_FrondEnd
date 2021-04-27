@@ -47,7 +47,7 @@ export class UpdateuserComponent implements OnInit {
   }
 
   updateUser(id:number){
-    this.userService.updateUser(id,this.user).subscribe(() =>{
+    this.userService.updateUser(this.user).subscribe(() =>{
       this.router.navigate(['/'])
     });
   }

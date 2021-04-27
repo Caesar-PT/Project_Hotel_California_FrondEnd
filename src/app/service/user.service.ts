@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../user';
 const URL_BACKEND = `${environment.apiUrl}`;
@@ -17,8 +17,14 @@ export class UserService {
     return this.httpClient.get<User[]>(URL_BACKEND + '/user');
   }
 
-  updateUser(id: number, user: User): Observable<User> {
-    return this.httpClient.put<User>(URL_BACKEND + '/user/update/' + id, user);
+  updateUser( user: User): Observable<User> {
+    const token = localStorage.getItem('ACCESS_TOKEN');
+    const headers = new HttpHeaders({
+      'Access-Control-Allow-Origin':'*',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+    return this.httpClient.put<User>(URL_BACKEND + '/user/update' , user , { headers: headers });
   }
   getUserById(id: number): Observable<User> {
     return this.httpClient.get<User>(URL_BACKEND + '/user/' + `${id}`);
