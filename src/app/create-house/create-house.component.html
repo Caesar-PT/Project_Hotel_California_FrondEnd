@@ -2,86 +2,130 @@
     <h1 style="text-align: center;color:red;">Create new house</h1>
 </div>
 <div style="margin: 100px;">
-    <form [formGroup]="houseForm" (ngSubmit)="createHouse()" style="max-height: 60vh; overflow: auto;">
-        <div class="form-group">
-            <mat-form-field appearance="fill" class="w-100">
-                <mat-label>Name</mat-label>
-                <input formControlName="name" matInput>
-                <mat-error *ngIf="hasError('name', 'required')">
-                    Bạn chưa nhập tên
+ <div class="row">
+     <div class="col-4">
+        <p>Avatar</p>
+        <input autocomplete="off" type="file" (change)="upLoadAvatar($event)">
+        <app-image height="100px"></app-image>
+     </div>
+     <div class="col-8">
+        <form [formGroup]="houseForm" (ngSubmit)="createHouse()" style="max-height: 60vh; overflow: auto;">
+            <div class="form-group">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Tên nhà</mat-label>
+                    <input formControlName="name" matInput>
+                    <mat-error *ngIf="hasError('name', 'required')">
+                        Bạn chưa nhập tên
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Số phòng ngủ</mat-label>
+                    <input formControlName="bedRoom" matInput>
+                    <mat-error *ngIf="hasError('bedRoom', 'required')">
+                        Bạn chưa nhập số phòng ngủ
+                    </mat-error>
+                    <mat-error *ngIf="hasError('bedRoom', 'min')">
+                        Phòng ngủ phải là số dương
+                    </mat-error>
+                    <mat-error *ngIf="hasError('bedRoom', 'pattern')">
+                        Phòng ngủ phải là số
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Số phòng tắm</mat-label>
+                    <input formControlName="bathRoom" matInput>
+                    <mat-error *ngIf="hasError('bathRoom', 'required')">
+                        Bạn chưa nhập số phòng tắm
+                    </mat-error>
+                    <mat-error *ngIf="hasError('bathRoom', 'min')">
+                        Phòng tắm phải là số dương
+                    </mat-error>
+                    <mat-error *ngIf="hasError('bathRoom', 'pattern')">
+                        Phòng tắm phải là số
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Chi tiết</mat-label>
+                    <input formControlName="description" matInput>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Gía nhà</mat-label>
+                    <input formControlName="priceByDay" matInput>
+                    <mat-error *ngIf="hasError('priceByDay', 'required')">
+                        Bạn chưa nhập số giá nhà
+                    </mat-error>
+                    <mat-error *ngIf="hasError('priceByDay', 'min')">
+                        Giá nhà phải là số dương
+                    </mat-error>
+                    <mat-error *ngIf="hasError('priceByDay', 'pattern')">
+                        Giá nhà phải là số
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Kiểu loại nhà</mat-label>
+                    <mat-select formControlName="houseType">
+                        <mat-option *ngFor="let type of listHouseType" [value]="type.id">
+                            {{type.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="hasError('houseType', 'required')">
+                    Bạn chưa chọn kiểu nhà
                 </mat-error>
-            </mat-form-field>
-            <!-- <input autocomplete="off" type="text" name="name" formControlName="name" class="form-control" id="name" aria-describedby=""
-                placeholder="">
-                <span class="w-100 text-danger" *ngIf="hasError('name', 'required')">
-                    ban chua nhap ten
-                </span> -->
-        </div>
-        <div class="form-group">
-            <label for="bedRoom">bedRoom</label>
-            <input autocomplete="off" type="bedRoom" name="code" formControlName="bedRoom" class="form-control"
-                id="createDate" aria-describedby="" placeholder="">
-            <span class="w-100 text-danger" *ngIf="hasError('bedRoom', 'required')">
-                ban chua nhap so phong ngu
-            </span>
-            <span class="w-100 text-danger" *ngIf="hasError('bedRoom', 'min')">
-                phong ngu phai la so duong
-            </span>
-            <span class="w-100 text-danger" *ngIf="hasError('bedRoom', 'pattern')">
-                phong ngu phai la so
-            </span>
-        </div>
-        <div class="form-group">
-            <label for="bathRoom">bathRoom</label>
-            <textarea name="bathRoom" formControlName="bathRoom" class="form-control" id="description"
-                aria-describedby="" placeholder=""></textarea>
-        </div>
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea name="description" formControlName="description" class="form-control" id="description"
-                aria-describedby="" placeholder=""></textarea>
-        </div>
-        <div class="form-group">
-            <label for="priceDay">priceDay</label>
-            <textarea name="priceDay" formControlName="priceByDay" class="form-control" id="description"
-                aria-describedby="" placeholder=""></textarea>
-        </div>
-        <div class="form-group">
-            <label>houseType</label>
-            <select id="houseType" name="houseType" class="form-select" aria-label="Default select example"
-                formControlName="houseType">
-                <option *ngFor="let type of listHouseType" [value]="type.id">{{type.name}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>houseStatus</label>
-            <select name="houseStatus" class="form-select" formControlName="houseStatus"
-                aria-label="Default select example">
-                <option *ngFor="let houseStatus of listHouseStatus" [value]="houseStatus.id">{{houseStatus.name}}
-                </option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>village</label>
-            <select name="village" class="form-select" aria-label="Default select example" formControlName="village">
-                <option *ngFor="let village of listVillage" [value]="village.id">{{village.name}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <p>List photo</p>
-
-            <input autocomplete="off" type="file" (change)="upLoad($event)" accept="*.png.jpg">
-            <app-image height="100px" *ngFor="let srcImg of photo" [src]="srcImg"></app-image>
-        </div>
-        <div class="form-group">
-            <p>Avatar</p>
-
-            <input autocomplete="off" type="file" (change)="upLoadS($event)" accept="*.png.jpg"
-                formControlName="avatars">
-        </div>
-        <div style="text-align: center;">
-            <button type="submit" class="btn btn-primary">Create</button>
-            <button class="btn btn-primary" routerLink="" style="margin-left: 10px;">Close</button>
-        </div>
-    </form>
+                <!-- 
+                <label>houseType</label>
+                <select id="houseType" name="houseType" class="form-select" aria-label="Default select example"
+                    formControlName="houseType">
+                    <option *ngFor="let type of listHouseType" [value]="type.id">{{type.name}}</option>
+                </select> -->
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Trạng thái</mat-label>
+                    <mat-select formControlName="houseStatus">
+                        <mat-option *ngFor="let status of listHouseStatus" [value]="status.id">
+                            {{status.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="hasError('houseStatus', 'required')">
+                    Bạn chưa chọn trạng thái nhà
+                </mat-error>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Địa chỉ nhà</mat-label>
+                    <mat-select formControlName="village">
+                        <mat-option *ngFor="let village of listVillage" [value]="village.id">
+                            {{village.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="hasError('village', 'required')">
+                    Bạn chưa chọn địa chỉ nhà
+                </mat-error>
+            </div>
+            <div class="form-group">
+                <p>List photo</p>
+    
+                <input autocomplete="off" type="file" (change)="upLoad($event)">
+                <app-image height="100px" *ngFor="let srcImg of photo" [src]="srcImg"></app-image>
+            </div>
+            <div style="text-align: center;">
+                <button type="btn" class="btn btn-primary" >Update</button>
+                <button class="btn btn-primary" (click)="closeDialog()" style="margin-left: 10px;">Close</button>
+            </div>
+        </form>
+     </div>
+ </div>
 </div>

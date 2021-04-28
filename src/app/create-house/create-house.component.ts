@@ -1,5 +1,4 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { House } from '../house';
 import { HouseStatus } from '../house-status';
@@ -11,7 +10,8 @@ import { Village } from '../village';
 import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
 import { FormBuilder, Validators } from '@angular/forms';
 import { JwtService } from '../service/jwt.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-house',
@@ -19,6 +19,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./create-house.component.css']
 })
 export class CreateHouseComponent implements OnInit {
+  nameAvatar: string = '';
+  fileAvatar: any;
   avatar: string = "";
   photo: string[] = [];
 
@@ -27,16 +29,15 @@ export class CreateHouseComponent implements OnInit {
     bedRoom: ['', [Validators.required, Validators.min(0), Validators.pattern('[0-9]*')]],
     bathRoom: ['', [Validators.required, Validators.min(0)]],
     description: ['', [Validators.maxLength(400)]],
-    priceByDay: ['', [Validators.required, Validators.min(0)]],
+    priceByDay: ['', [Validators.required, Validators.min(0), Validators.pattern('[0-9]*')]],
     houseType: ['', [Validators.required]],
     houseStatus: ['', [Validators.required]],
-    village: ['', [Validators.required]],
-    avatars: ['', Validators.required]
+    village: ['', [Validators.required]]
   });
 
   file: any;
   downLoadURL: Observable<string> | undefined
-  name: string ='';
+  name: string = '';
   listHouseType: HouseType[] = [];
   listHouseStatus: HouseStatus[] = [];
   listVillage: Village[] = [];
@@ -45,8 +46,10 @@ export class CreateHouseComponent implements OnInit {
     private houseService: HouseService,
     private router: Router,
     private af: AngularFireStorage,
+    private afr: AngularFireStorage,
     private fb: FormBuilder,
     private jwt: JwtService,
+    public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     if (data) {
@@ -84,9 +87,49 @@ export class CreateHouseComponent implements OnInit {
     this.uploadImage();
   }
 
-  upLoadS(event: any) {
-    // @ts-ignore
-    this.avatar = event.target.files[0];
+  uploadImage() {
+    const fileRef: AngularFireStorageReference = this.af.ref(
+      this.name,
+    );
+    if (this.file !== null) {
+      const task = this.af.upload(this.name, this.file);
+      task.percentageChanges().subscribe((e) => {
+        console.log(e);
+      });
+      task.then(() => {
+        fileRef.getDownloadURL().subscribe(url => {
+          if (url) {
+            this.photo.push(url);
+          }
+        });
+      });
+    }
+  }
+
+  upLoadAvatar(events: any) {
+    this.fileAvatar = events.target.files[0];
+    this.nameAvatar = '/files' + Date.now() + this.fileAvatar.name;
+    this.uploadImageAvatar();
+  }
+
+  uploadImageAvatar() {
+    const fileRef: AngularFireStorageReference = this.afr.ref(
+      this.nameAvatar
+    );
+    if (this.fileAvatar !== null) {
+      const task = this.afr.upload(this.nameAvatar, this.fileAvatar);
+      task.percentageChanges().subscribe((e) => {
+        console.log(e);
+      });
+      task.then(() => {
+        fileRef.getDownloadURL().subscribe(url => {
+          if (url) {
+            this.avatar = url;
+            console.log("avatar:" + this.avatar);
+          }
+        });
+      });
+    }
   }
 
   createHouse() {
@@ -94,24 +137,11 @@ export class CreateHouseComponent implements OnInit {
     this.saveHouse();
   }
 
-  uploadImage() {
-      const fileRef: AngularFireStorageReference = this.af.ref(
-        this.name
-      );
-      if (this.file !== null) {
-        const task = this.af.upload(this.name, this.file);
-        task.percentageChanges().subscribe((e) => {
-          console.log(e);
-        });
-        task.then(() => {
-          fileRef.getDownloadURL().subscribe(url => {
-            if (url) {
-              this.photo.push(url);
-            }
-          });
-        });
-      }
+  closeDialog(){
+    this.dialog.closeAll();
   }
+
+
 
   saveHouse() {
     const house = this.houseForm.value;
@@ -120,10 +150,10 @@ export class CreateHouseComponent implements OnInit {
     house.village = this.listVillage.find(v => v.id == house.village);
     house.photo = this.photo;
     house.appUser = this.jwt.currentUserValue.user;
-    house.avatar = house.avatars;
+    house.avatar = this.avatar;
     house.id = this.data?.id;
     this.houseService.createHouse(house).subscribe(() => {
-      this.router.navigate(['/house']);
+      this.closeDialog();
     });
   }
 
